@@ -138,7 +138,7 @@
 ## Training
 - გამოვიყენე როგორც წრფივი, ისე ხის მოდელები (Linear Regression, Ridge, Lasso, ElasticNet, Decision Tree, Random Forest, XGBoost)
 - თითოეული მოდელისთვის მქონდა შესაბამისი ჰიპერპარამეტრების სივრცე და GridSearchCV-ით თითოეული მოდელისთვის ჰიპერპარამეტრების ოპტიმიზაცია 
-  მოხდა R2 score-ის მიხედვით.
+  მოხდა R2 score-ის მიხედვით (kFoldCrossValidation-ით).
 - საუკეთესო მოდელად შევარჩიე Random Forest შემდეგი ჰიპერპარამეტრებით: {'regressor__max_depth': 15, 'regressor__min_samples_leaf': 5, 'regressor__min_samples_split': 2, 'scaler': None}, 
   რადგან საუკეთესო შედეგი ჰქონდა cross ვალიდაციით.
 - საბოლოოდ შერჩეული მოდელი თავისი პარამეტრებით და HousePricePreprocessing კლასი გავაერთიანე pipeline-ში.
