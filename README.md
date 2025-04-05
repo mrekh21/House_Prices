@@ -76,49 +76,49 @@
 
 
 ## რეპოზიტორიის სტრუქტურა
-- model_experiment.ipynb: სატრენინგო მონაცემების ანალიზი, Cleaning, Feature Engineering, Feature Selection, Training, 
+- `model_experiment.ipynb`: სატრენინგო მონაცემების ანალიზი, Cleaning, Feature Engineering, Feature Selection, Training, 
 საბოლოო pipeline თავისი preprocessing კლასით და MLflow-ზე დალოგვები.
-- model_inference.ipynb: მოდელის და-load-ება, ტესტ სეტზე პროგნოზი და csv ფაილად შენახვა submission-სთვის.
-- README.md: ახლა რასაც კითხულობთ, ეგ.
+- `model_inference.ipynb`: მოდელის და-load-ება, ტესტ სეტზე პროგნოზი და csv ფაილად შენახვა submission-სთვის.
+- `README.md`: ახლა რასაც კითხულობთ, ეგ.
 
 ## Feature Engineering
-- "Id" სვეტი თავიდანვე მოვაშორე, რადგან ტრენინგში არ გვჭირდება.
+- `Id` სვეტი თავიდანვე მოვაშორე, რადგან ტრენინგში არ გვჭირდება.
 - Nan მნიშვნელობების ანალიზი: 
-  - 1453 (99.52%) nan value გვქონდა კატეგორიულ "PoolQC"-ში, რაც არის აუზის ხარისხი. თუ ვნახავთ მის შესაბამის numerical სვეტს, 
+  - 1453 (99.52%) nan value გვქონდა კატეგორიულ `PoolQC`-ში, რაც არის აუზის ხარისხი. თუ ვნახავთ მის შესაბამის numerical სვეტს, 
   "PoolArea", რომელიც არის აუზის ფართობი, მისი 1453 მნიშვნელობა არის 0, რაც იმას ნიშნავს, რომ სახლების უმეტესობას აუზი არ აქვს, 
   შესაბამისად "PoolQC" ანუ აუზის ხარისხის კატეგორიული მნიშვნელობები გამოტოვებულია.
-  - 1406 (96.3%) nan value გვქონდა კატეგორიულ სვეტში "MiscFeature" რომელიც არის Miscellaneous feature not covered in other categories, 
+  - 1406 (96.3%) nan value გვქონდა კატეგორიულ სვეტში `MiscFeature` რომელიც არის Miscellaneous feature not covered in other categories, 
   რომლის შესაბამისი numerical ცვლადის "MiscVal"-ის ანუ $Value of miscellaneous feature-ის 1400-ზე მეტი მნიშვნელობა ასევე არის 0, რაც იმას ნიშნავს, 
   რომ ეს მახასიათებელი სახლების უმეტესობას არ გააჩნია.
-  - 1369 (93.77%) nan value გვქონდა კატეგორიულ სვეტში "Alley", რაც არის Type of alley access, რაც სავარაუდოდ სახლების უმეტესობას არ აქვს.
-  - 1179 (80.75%) nan value გვქონდა კატეგორიულ სვეტში "Fence", რომელიც არის ღობის ხარისხი, ამიტომ ამდენი გამოტოვებული მონაცემის არსებობა სავარაუდოდ 
+  - 1369 (93.77%) nan value გვქონდა კატეგორიულ სვეტში `Alley`, რაც არის Type of alley access, რაც სავარაუდოდ სახლების უმეტესობას არ აქვს.
+  - 1179 (80.75%) nan value გვქონდა კატეგორიულ სვეტში `Fence`, რომელიც არის ღობის ხარისხი, ამიტომ ამდენი გამოტოვებული მონაცემის არსებობა სავარაუდოდ 
   ნიშნავს, რომ სახლების უმეტესობას ღობე საერთოდ არ აქვს.
-  - 872 (59.73%) nan value გვქონდა კატეგორიულ სვეტში "MasVnrType", რომელიც არის Masonry veneer type, რომლის შესაბამისი numerical სვეტია "MasVnrArea", 
+  - 872 (59.73%) nan value გვქონდა კატეგორიულ სვეტში `MasVnrType`, რომელიც არის Masonry veneer type, რომლის შესაბამისი numerical სვეტია "MasVnrArea", 
   რომლის 800-ზე მეტი მნიშვნელობა არის 0, რაც იმას ნიშნავს, რომ სახლების ნახევარზე მეტს Masonry veneer საერთოდ არ გააჩნია, შესაბამისად მისი ტიპის აღმნიშვნელი 
   კატეგორიული ცვლადის მნიშვნელობები გამოტოვებულია.
-  - 690 (47.26%) nan value გვქონდა კატეგორიულ სვეტში "FireplaceQu", რომელიც არის Fireplace quality. მისი შესაბამისი numerical ცვლადია "Fireplaces" 
+  - 690 (47.26%) nan value გვქონდა კატეგორიულ სვეტში `FireplaceQu`, რომელიც არის Fireplace quality. მისი შესაბამისი numerical ცვლადია "Fireplaces" 
   ანუ Number of fireplaces, რომლის 690 მნიშვნელობა არის 0, რაც იმას ნიშნავს, რომ სახლების ამ რაოდენობას არ გააჩნია ბუხრები, შესაბამისად მისი ხარისხის აღმნიშვნელი 
   კატეგორიული ცვლადის მნიშვნელობები ასეთი სახლებისთვის გამოტოვებულია.
-  - 81 (5.55%) nan value გვქონდა კატეგორიულ სვეტებში "GarageType", "GarageFinish", "GarageQual", "GarageCond". მათი შესაბამისი numerical სვეტებია 
+  - 81 (5.55%) nan value გვქონდა კატეგორიულ სვეტებში `GarageType`, `GarageFinish`, `GarageQual`, `GarageCond`. მათი შესაბამისი numerical სვეტებია 
   "GarageYrBlt"(რომელშიც ასევე 81 (5.55%) null value გვქონდა) და კიდევ "GarageCars" (Size of garage in car capacity) და "GarageArea" (Size of garage in square feet), 
   რომლებშიც 81 მნიშვნელობა არის 0-ის ტოლი. სავარაუდოდ ჩვენი მონაცემებიდან 81 სახლს არ ჰქონდა საერთოდ ავტოფარეხი და სწორედ ამიტომ იყო მათი შესაბამისი სვეტების მნიშვნელობები გამოტოვებული.
-  - 38 (2.6%) nan value გვქონდა კატეგორიულ სვეტებში "BsmtExposure" და "BsmtFinType2", ხოლო 37 (2.53%) nan value გვაქვს კატეგორიულ სვეტებში "BsmtQual", "BsmtCond" და "BsmtFinType1". 
+  - 38 (2.6%) nan value გვქონდა კატეგორიულ სვეტებში `BsmtExposure` და `BsmtFinType2`, ხოლო 37 (2.53%) nan value გვქონდა კატეგორიულ სვეტებში `BsmtQual`, `BsmtCond` და `BsmtFinType1`. 
   ეს სვეტები არის basement-ის შესაბამისი კატეგორიული ცვლადები- მისი ხარისხი, მდგომარეობა და ტიპი. მისი შესაბამისი numerical ცვლადია "TotalBsmtSF"- Total square feet of basement area, 
   რომლის 37 მნიშვნელობა არის 0, რაც იმას ნიშნავს, რომ მის შესაბამის კატეგორიულ სვეტებში გამოტოვებული მონაცემების არსებობა სავარაუდოდ აიხსნება იმით, რომ ამ სახლებს საერთოდ არ აქვთ basement.
-  - 1 (0.07%) nan value გვქონდა კატეგორიულ სვეტში "Electrical", რომელიც არის Electrical system.
-  - 259 (17.74%) nan value გვქონდა numerical სვეტში "LotFrontage" (Linear feet of street connected to property).
-  - 81 (5.55%) nan value გვქონდა numerical სვეტში "GarageYrBlt", რაც უკვე აღვნიშნეთ ზემოთ.
-  - 8 (0.55%) nan value გვქონდა numerical სვეტში "MasVnrArea" (Masonry veneer area in square feet).
+  - 1 (0.07%) nan value გვქონდა კატეგორიულ სვეტში `Electrical`, რომელიც არის Electrical system.
+  - 259 (17.74%) nan value გვქონდა numerical სვეტში `LotFrontage` (Linear feet of street connected to property).
+  - 81 (5.55%) nan value გვქონდა numerical სვეტში `GarageYrBlt`, რაც უკვე აღვნიშნეთ ზემოთ.
+  - 8 (0.55%) nan value გვქონდა numerical სვეტში `MasVnrArea` (Masonry veneer area in square feet).
 - ამ ახსნებიდან და ანალიზიდან გამომდინარე გავაკეთე შემდეგი:
-  - ისეთი სვეტები, სადაც გამოტოვებული მნიშვნელობები იყო 80%-ზე მეტი ამოვაგდე. ასეთი კატეგორიული სვეტები იყო "Alley", "PoolQC", "Fence", "MiscFeature".
-  -"MasVnrType"-ში გამოტოვებული მონაცემები შევავსე "None"-ით, თუ მისი შესაბამისი "MasVnrArea" იყო 0, სხვა შემთხვევაში შევავსე მოდით. 
-  -"FireplaceQu"-ში გამოტოვებული მონაცემები შევავსე "None"-ით.
-  -garage-თან და basement-თან დაკავშირებულ კატეგორიულ ცვლადებში ("GarageType", "GarageFinish", "GarageQual", "GarageCond", "BsmtExposure", "BsmtFinType2", "BsmtQual", "BsmtCond", "BsmtFinType1") 
+  - ისეთი სვეტები, სადაც გამოტოვებული მნიშვნელობები იყო 80%-ზე მეტი ამოვაგდე. ასეთი კატეგორიული სვეტები იყო `Alley`, `PoolQC`, `Fence`, `MiscFeature`.
+  - `MasVnrType`-ში გამოტოვებული მონაცემები შევავსე "None"-ით, თუ მისი შესაბამისი "MasVnrArea" იყო 0, სხვა შემთხვევაში შევავსე მოდით. 
+  - `FireplaceQu`-ში გამოტოვებული მონაცემები შევავსე "None"-ით.
+  - garage-თან და basement-თან დაკავშირებულ კატეგორიულ ცვლადებში (`GarageType`, `GarageFinish`, `GarageQual`, `GarageCond`, `BsmtExposure`, `BsmtFinType2`, `BsmtQual`, `BsmtCond`, `BsmtFinType1`) 
   გამოტოვებული მონაცემები შევავსე "None"-ით, რადგან ავტოფარეხი და სარდაფი საერთოდ არ აქვთ ასეთ სახლებს.
-  -"Electrical"-ში გამოტოვებული 1 მნიშვნელობა შევავსე მოდით.
-  -numerical "LotFrontage"-ში გამოტოვებული მონაცემები შევავსე მედიანით.
-  -numerical "MasVnrArea"-ში გამოტოვებული მონაცემები შევავსე 0-ით, თუ მისი შესაბამისი "MasVnrType" იყო "None", სხვა შემთხვევაში შევავსე მედიანით.
-  -numerical "GarageYrBlt"-ში გამოტოვებული მონაცემები შევავსე 0-ით, რადგან ასეთ სახლებს ავტოფარეხი არ აქვთ.
+  - `Electrical`-ში გამოტოვებული 1 მნიშვნელობა შევავსე მოდით.
+  - numerical `LotFrontage`-ში გამოტოვებული მონაცემები შევავსე მედიანით.
+  - numerical `MasVnrArea`-ში გამოტოვებული მონაცემები შევავსე 0-ით, თუ მისი შესაბამისი "MasVnrType" იყო "None", სხვა შემთხვევაში შევავსე მედიანით.
+  - numerical `GarageYrBlt`-ში გამოტოვებული მონაცემები შევავსე 0-ით, რადგან ასეთ სახლებს ავტოფარეხი არ აქვთ.
 - კატეგორიული ცვლადები რიცხვითში გადავიყვანე OneHotEncoding-ით. (WOE არ გამოგვადგებოდა, რადგან რეგრესიის ამოცანა გვაქვს და ბინარული კლასიფიკაციის 
 მსგავსად 2 კლასად (დადებითად და უარყოფითად) ვერ გაყოფდა)
 
@@ -148,11 +148,11 @@
 - ექსპერიმენტების ბმული: https://dagshub.com/mrekh21/House_Prices.mlflow/#/experiments/0?searchFilter=&orderByKey=attributes.start_time&orderByAsc=false&startTime=ALL&lifecycleFilter=Active&modelVersionFilter=All+Runs&datasetsFilter=W10%3D
 - ზემოთ უკვე აღწერილია ყველა დალოგვა
 - საუკეთესო მოდელის შედეგები (train set-ზე):
-  - train_rmse_log=0.11829719568965139
-  - train_mae=13799.294243915072
-  - train_rmse=23469.573025595124
-  - train_mse=550820858.0037423
-  - train_r2_score=0.9126622288745652
+  - `train_rmse_log`= 0.11829719568965139
+  - `train_mae` = 13799.294243915072
+  - `train_rmse` = 23469.573025595124
+  - `train_mse` = 550820858.0037423
+  - `train_r2_score` = 0.9126622288745652
 - kaggle competition-ზე submission-ის score: 0.16288
 - რადგან R2 score გვაქვს 0.91, ეს იმას ნიშნავს, რომ მოდელი train set-ზე საკმაოდ კარგ პროგნოზებს აკეთებს, ამიტომ underfitting არ გვაქვს.
 - რაც შეეხება overfitting-ს, kaggle log RMSE-ით აფასებს, ამიტომ რადგან train set-ზე log RMSE იყო 0.118.. ხოლო kaggle-ის score-ით test set-ზე
